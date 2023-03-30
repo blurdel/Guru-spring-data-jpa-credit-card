@@ -2,6 +2,7 @@ package com.blurdel.sdjpa.creditcard;
 
 import com.blurdel.sdjpa.creditcard.domain.CreditCard;
 import com.blurdel.sdjpa.creditcard.repositories.CreditCardRepository;
+import com.blurdel.sdjpa.creditcard.services.EncryptionService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -18,6 +19,9 @@ class GuruSpringDataJpaCreditCardApplicationTests {
 	final String CREDIT_CARD = "12345678900000";
 
 	@Autowired
+	EncryptionService encryptionService;
+
+	@Autowired
 	CreditCardRepository creditCardRepo;
 
 
@@ -30,7 +34,10 @@ class GuruSpringDataJpaCreditCardApplicationTests {
 
 		CreditCard saved = creditCardRepo.saveAndFlush(cc);
 
-		System.out.println("Getting CC from database");
+		System.out.println("Getting CC from database:" + saved.getCreditCardNumber());
+
+		System.out.println("CC at Rest");
+		System.out.println("CC encrypted: " + encryptionService.encrypt(CREDIT_CARD));
 
 		CreditCard fetched = creditCardRepo.findById(saved.getId()).get();
 
