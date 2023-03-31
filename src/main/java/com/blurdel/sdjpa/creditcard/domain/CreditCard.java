@@ -5,6 +5,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.PrePersist;
 
 @Entity
 public class CreditCard {
@@ -15,12 +16,12 @@ public class CreditCard {
 
 	@EncryptedString
 	private String creditCardNumber;
-	
+
 	private String cvv;
-	
+
 	private String expirationDate;
 
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -52,4 +53,10 @@ public class CreditCard {
 	public void setExpirationDate(String expirationDate) {
 		this.expirationDate = expirationDate;
 	}
+
+	@PrePersist
+	public void prePersistCallback() {
+		System.out.println("JPA PrePersist Callback called");
+	}
+
 }
