@@ -1,5 +1,6 @@
 package com.blurdel.sdjpa.creditcard.domain;
 
+import com.blurdel.sdjpa.creditcard.interceptors.EncryptedString;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -11,7 +12,8 @@ public class CreditCard {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
+	@EncryptedString
 	private String creditCardNumber;
 	
 	private String cvv;
